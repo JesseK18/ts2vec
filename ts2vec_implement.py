@@ -3,6 +3,7 @@ import numpy as np
 import torch
 from ts2vec import TS2Vec
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
 # Function to load a UCR dataset from .tsv files
@@ -51,7 +52,7 @@ train_repr = train_repr.mean(axis=1)
 test_repr = test_repr.mean(axis=1)
 
 # Train a classifier (Logistic Regression)
-clf = LogisticRegression()
+clf = RandomForestClassifier(n_estimators=100, random_state=42) # LogisticRegression()
 clf.fit(train_repr, train_y)
 
 # Evaluate on the test set
