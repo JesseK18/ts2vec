@@ -26,7 +26,7 @@ def load_ucr_dataset(dataset_name, root_dir="datasets/UCR"):
     return train_x, train_y, test_x, test_y
 
 # Load the UCR dataset
-dataset_name = "ECG200"  # Change to any dataset in UCR
+dataset_name = "EthanolLevel"  # Change to any dataset in UCR
 train_x_np, train_y, test_x_np, test_y = load_ucr_dataset(dataset_name)
 
 # Convert data to PyTorch tensors and add an extra dimension for the channel/feature.

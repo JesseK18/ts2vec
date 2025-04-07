@@ -111,7 +111,7 @@ def main():
     # -----------------------------
     # 5.1 Load data
     # -----------------------------
-    dataset_name = "ECG200"  # Change to any other dataset in UCR
+    dataset_name = "OliveOil"  # Change to any other dataset in UCR
     train_x_np, train_y_np, test_x_np, test_y_np = load_ucr_dataset(dataset_name)
 
     # -----------------------------
