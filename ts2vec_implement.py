@@ -26,7 +26,7 @@ def load_ucr_dataset(dataset_name, root_dir="datasets/UCR"):
     return train_x, train_y, test_x, test_y
 
 # Load the UCR dataset
-dataset_name = "EthanolLevel"  # Change to any dataset in UCR
+dataset_name = "Car"  # Change to any dataset in UCR
 train_x_np, train_y, test_x_np, test_y = load_ucr_dataset(dataset_name)
 
 # Convert data to PyTorch tensors and add an extra dimension for the channel/feature.
@@ -40,7 +40,7 @@ model = TS2Vec(input_dims=train_x_tensor.shape[-1], device=device)
 
 # For training, convert the training tensor back to a NumPy array.
 train_x_for_fit = train_x_tensor.cpu().numpy()
-model.fit(train_x_for_fit, n_epochs=10, verbose=True)
+model.fit(train_x_for_fit, n_epochs=27, verbose=True)
 
 # For encoding, also convert the tensors to NumPy arrays.
 # This will produce a representation of shape (n_samples, time_steps, feature_dim)

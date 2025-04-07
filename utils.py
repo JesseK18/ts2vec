@@ -74,6 +74,7 @@ def name_with_datetime(prefix='default'):
     now = datetime.now()
     return prefix + '_' + now.strftime("%Y%m%d_%H%M%S")
 
+
 def init_dl_program(
     device_name,
     seed=None,
@@ -94,23 +95,25 @@ def init_dl_program(
             pass
         else:
             mkl.set_num_threads(max_threads)
-        
+    
     if seed is not None:
         random.seed(seed)
         seed += 1
         np.random.seed(seed)
         seed += 1
         torch.manual_seed(seed)
-        
+    
     if isinstance(device_name, (str, int)):
         device_name = [device_name]
     
     devices = []
     for t in reversed(device_name):
         t_device = torch.device(t)
+        if t_device.type == 'cuda' and not torch.cuda.is_available():
+            print("CUDA is not available. Falling back to CPU.")
+            t_device = torch.device('cpu')
         devices.append(t_device)
         if t_device.type == 'cuda':
-            assert torch.cuda.is_available()
             torch.cuda.set_device(t_device)
             if seed is not None:
                 seed += 1
@@ -123,6 +126,6 @@ def init_dl_program(
     if hasattr(torch.backends.cudnn, 'allow_tf32'):
         torch.backends.cudnn.allow_tf32 = use_tf32
         torch.backends.cuda.matmul.allow_tf32 = use_tf32
-        
+    
     return devices if len(devices) > 1 else devices[0]
 
